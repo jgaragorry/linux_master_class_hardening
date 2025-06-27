@@ -1,45 +1,100 @@
-Laboratorio de Hardening: Explotación y Corrección de Vulnerabilidad SUID
-Este repositorio contiene un conjunto de scripts y una guía detallada para demostrar una de las vulnerabilidades de escalada de privilegios más clásicas en sistemas Linux: el abuso de permisos SUID en archivos ejecutables.
+Este repositorio contiene una guía práctica y un conjunto de scripts para demostrar una de las vulnerabilidades de escalada de privilegios más clásicas y críticas en sistemas Linux: el abuso de permisos SUID.
 
-El laboratorio sigue un ciclo completo:
+A través de un laboratorio práctico en Azure, seguirás el ciclo completo de un incidente de seguridad, desde el despliegue de una infraestructura vulnerable hasta su detección, explotación, corrección y limpieza.
 
-Despliegue: Se crea una máquina virtual (VM) Ubuntu en Azure.
+📋 Tabla de Contenido
+🎯 Objetivo del Laboratorio
 
-Vulnerabilidad: Se simula un error administrativo que crea una falla de seguridad.
+🛠️ Requisitos Previos
 
-Explotación: Se demuestra cómo un usuario sin privilegios puede obtener acceso root.
+📂 Contenido del Repositorio
 
-Detección: Se utiliza un script de auditoría para encontrar la vulnerabilidad.
+🚀 Guía de Ejecución Paso a Paso
 
-Corrección: Se aplica y verifica la solución para eliminar la vulnerabilidad.
+Fase 1: Despliegue del Entorno
 
-Limpieza: Se eliminan todos los recursos de la nube para evitar costos.
+Fase 2: Creación de la Vulnerabilidad
 
-Requisitos Previos
-Para seguir esta guía, necesitarás tener instalado lo siguiente en tu máquina local (por ejemplo, en WSL):
+Fase 3: Explotación y Escalada de Privilegios
 
-Azure CLI: La interfaz de línea de comandos para interactuar con Azure (az login debe estar configurado).
+Fase 4: Detección y Corrección
 
-Un cliente SSH: Estándar en la mayoría de los sistemas tipo Linux/macOS.
+Fase 5: Verificación Final
 
-jq: Una herramienta de línea de comandos para procesar datos JSON. Puedes instalarla con sudo apt install jq.
+Fase Final: Limpieza de Recursos
 
-Contenido del Repositorio
-Este repositorio incluye los siguientes scripts:
+📜 Código Completo de los Scripts
 
-create_vm.sh: Despliega la VM de laboratorio en Azure.
+🎯 Objetivo del Laboratorio
+Este laboratorio está diseñado para que los profesionales de TI y ciberseguridad puedan:
 
-verify_vm.sh: Verifica el estado y obtiene los detalles (IP pública) de la VM creada.
+Comprender el riesgo real que representa un permiso SUID mal configurado.
 
-crear_vulnerabilidad_suid.sh: Se ejecuta DENTRO de la VM para aplicar el permiso SUID vulnerable al comando find.
+Aprender a identificar binarios con SUID en un sistema de archivos.
 
-auditar_suid.sh: Se ejecuta DENTRO de la VM para escanear el sistema en busca de archivos con SUID.
+Ejecutar una escalada de privilegios en un entorno controlado.
 
-corregir_suid.sh: Se ejecuta DENTRO de la VM para remover el permiso SUID y verificar la corrección.
+Aplicar las medidas correctivas para neutralizar esta vulnerabilidad.
 
-delete_resources.sh: Elimina de forma segura todo el grupo de recursos y la VM de Azure.
+🛠️ Requisitos Previos
+Antes de comenzar, asegúrate de tener lo siguiente en tu máquina local (ej. WSL):
 
-Guía de Ejecución Paso a Paso
+Herramienta
+
+Comando de Verificación / Instalación
+
+Propósito
+
+Azure CLI
+
+az version
+
+Para interactuar con tu suscripción de Azure.
+
+Cliente SSH
+
+ssh -V
+
+Para conectarse a la máquina virtual.
+
+jq
+
+sudo apt install jq
+
+Para procesar la salida JSON de Azure CLI.
+
+Nota Importante: Debes haber iniciado sesión en Azure CLI antes de ejecutar los scripts. Usa el comando az login.
+
+📂 Contenido del Repositorio
+Script
+
+Descripción
+
+📜 create_vm.sh
+
+Despliega la VM Ubuntu 24.04 vulnerable en Azure.
+
+🔍 verify_vm.sh
+
+Verifica el estado y obtiene los detalles de la VM.
+
+☢️ crear_vulnerabilidad_suid.sh
+
+(Se ejecuta en la VM) Aplica el permiso SUID a /usr/bin/find.
+
+🛡️ auditar_suid.sh
+
+(Se ejecuta en la VM) Escanea el sistema en busca de archivos SUID.
+
+✅ corregir_suid.sh
+
+(Se ejecuta en la VM) Remueve el permiso SUID y verifica.
+
+🧹 delete_resources.sh
+
+Elimina todos los recursos de Azure para evitar costos.
+
+🚀 Guía de Ejecución Paso a Paso
 Fase 1: Despliegue del Entorno de Laboratorio
 Ubicación: Tu terminal local (WSL gmt@MSI).
 
@@ -47,7 +102,7 @@ Crear la VM: Ejecuta el script para desplegar el servidor Ubuntu en Azure.
 
 ./create_vm.sh
 
-Verificar y Obtener IP: Una vez que termine, ejecuta el script de verificación para obtener la dirección IP pública. Anótala, la necesitarás para todo lo demás.
+Verificar y Obtener IP: Una vez que termine, ejecuta el script de verificación para obtener la dirección IP pública. Anota esta IP, la necesitarás para todo lo demás.
 
 ./verify_vm.sh
 
@@ -90,7 +145,7 @@ Verifica el resultado: Tu prompt cambiará de $ a #. Confirma tu nueva identidad
 
 whoami
 
-El resultado debe ser root. ¡Has tomado el control!
+Resultado Esperado: root. ¡Has tomado el control!
 
 Sal de la shell de root para continuar: exit.
 
@@ -137,7 +192,7 @@ Cuando hayas terminado el laboratorio, ejecuta este script para eliminar todos l
 
 ./delete_resources.sh
 
-Código Completo de los Scripts
+📜 Código Completo de los Scripts
 create_vm.sh
 #!/bin/bash
 RESOURCE_GROUP_NAME="rg-gmt-vm-lab"
