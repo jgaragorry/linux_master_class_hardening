@@ -223,6 +223,7 @@ echo "=================================================="
 echo "¡Despliegue completado exitosamente!"
 echo "=================================================="
 echo "Para verificar los detalles de la VM, ejecuta: ./verify_vm.sh"
+```
 
 ### `verify_vm.sh`
 ```bash
@@ -255,6 +256,7 @@ if [ -n "$PUBLIC_IP" ] && [ "$PUBLIC_IP" != "null" ]; then
     echo "ssh gmt@$PUBLIC_IP"
 fi
 echo "=================================================="
+```
 
 ### `crear_vulnerabilidad_suid.sh`
 ```bash
@@ -269,6 +271,7 @@ echo "Aplicando permiso SUID..."
 sudo chmod 4755 $FIND_PATH
 echo "¡Vulnerabilidad creada!"
 ls -l $FIND_PATH
+```
 
 ### `auditar_suid.sh`
 ```bash
@@ -276,6 +279,7 @@ ls -l $FIND_PATH
 echo "Iniciando auditoría de permisos SUID en todo el sistema..."
 find / -type f -perm -4000 -ls 2>/dev/null
 echo "Auditoría completada."
+```
 
 ### `corregir_suid.sh`
 ```bash
@@ -297,6 +301,7 @@ if [[ $PERMS == *s* ]]; then
 else
     echo "¡ÉXITO! La vulnerabilidad SUID ha sido eliminada."
 fi
+```
 
 ### `delete_resources.sh`
 ```bash
