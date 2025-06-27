@@ -223,7 +223,10 @@ echo "=================================================="
 echo "¡Despliegue completado exitosamente!"
 echo "=================================================="
 echo "Para verificar los detalles de la VM, ejecuta: ./verify_vm.sh"
-verify_vm.sh#!/bin/bash
+
+### `verify_vm.sh`
+```bash
+#!/bin/bash
 RESOURCE_GROUP_NAME="rg-gmt-vm-lab"
 VM_NAME="vm-gmt-ubuntu"
 echo "=================================================="
@@ -252,7 +255,10 @@ if [ -n "$PUBLIC_IP" ] && [ "$PUBLIC_IP" != "null" ]; then
     echo "ssh gmt@$PUBLIC_IP"
 fi
 echo "=================================================="
-crear_vulnerabilidad_suid.sh#!/bin/bash
+
+### `crear_vulnerabilidad_suid.sh`
+```bash
+#!/bin/bash
 echo "Verificando la ubicación del comando 'find'..."
 FIND_PATH=$(which find)
 if [ -z "$FIND_PATH" ]; then
@@ -263,11 +269,17 @@ echo "Aplicando permiso SUID..."
 sudo chmod 4755 $FIND_PATH
 echo "¡Vulnerabilidad creada!"
 ls -l $FIND_PATH
-auditar_suid.sh#!/bin/bash
+
+### `auditar_suid.sh`
+```bash
+#!/bin/bash
 echo "Iniciando auditoría de permisos SUID en todo el sistema..."
 find / -type f -perm -4000 -ls 2>/dev/null
 echo "Auditoría completada."
-corregir_suid.sh#!/bin/bash
+
+### `corregir_suid.sh`
+```bash
+#!/bin/bash
 FIND_PATH="/usr/bin/find"
 echo "--- Iniciando proceso de corrección para $FIND_PATH ---"
 echo "Permisos ACTUALES (vulnerables):"
@@ -285,7 +297,10 @@ if [[ $PERMS == *s* ]]; then
 else
     echo "¡ÉXITO! La vulnerabilidad SUID ha sido eliminada."
 fi
-delete_resources.sh#!/bin/bash
+
+### `delete_resources.sh`
+```bash
+#!/bin/bash
 RESOURCE_GROUP_NAME="rg-gmt-vm-lab"
 echo "=================================================="
 echo "¡ADVERTENCIA! Estás a punto de eliminar el grupo de recursos '$RESOURCE_GROUP_NAME'."
